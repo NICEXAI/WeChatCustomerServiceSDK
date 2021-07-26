@@ -33,7 +33,7 @@ type AccountAddSchema struct {
 }
 
 // AccountAdd 添加客服账号
-func (r *Client) AccountAdd(options AccountAddOptions) (info AccessTokenSchema, err error) {
+func (r *Client) AccountAdd(options AccountAddOptions) (info AccountAddSchema, err error) {
 	data, err := util.HttpPost(fmt.Sprintf(accountAddAddr, r.accessToken), options)
 	if err != nil {
 		return info, err
