@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/NICEXAI/WeChatCustomerServiceSDK/syncmsg"
 	"github.com/NICEXAI/WeChatCustomerServiceSDK/util"
 )
 
@@ -20,12 +21,21 @@ type SyncMsgOptions struct {
 }
 
 // SyncMsgSchema 获取消息查询响应内容
+type syncMsgSchema struct {
+	ErrCode int32 `json:"errcode"`							// 返回码
+	ErrMsg string `json:"errmsg"`							// 错误码描述
+	NextCursor string `json:"next_cursor"`					// 下次调用带上该值则从该key值往后拉，用于增量拉取
+	HasMore uint32 `json:"has_more"`						// 是否还有更多数据。0-否；1-是。不能通过判断msg_list是否空来停止拉取，可能会出现has_more为1，而msg_list为空的情况
+	MsgList []map[string]interface{} `json:"msg_list"`		// 消息列表
+}
+
+// SyncMsgSchema 获取消息查询响应内容
 type SyncMsgSchema struct {
 	ErrCode int32 `json:"errcode"`							// 返回码
 	ErrMsg string `json:"errmsg"`							// 错误码描述
 	NextCursor string `json:"next_cursor"`					// 下次调用带上该值则从该key值往后拉，用于增量拉取
 	HasMore uint32 `json:"has_more"`						// 是否还有更多数据。0-否；1-是。不能通过判断msg_list是否空来停止拉取，可能会出现has_more为1，而msg_list为空的情况
-	MsgList [][]byte `json:"msg_list"`						// 消息列表
+	MsgList []syncmsg.Message `json:"msg_list"`				// 消息列表
 }
 
 // SyncMsg 获取消息
@@ -34,9 +44,56 @@ func (r *Client) SyncMsg(options SyncMsgOptions) (info SyncMsgSchema, err error)
 	if err != nil {
 		return info, err
 	}
-	_ = json.Unmarshal(data, &info)
-	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+	originInfo := syncMsgSchema{}
+	if err = json.Unmarshal(data, &originInfo); err != nil {
+		return info, err
 	}
-	return info, nil
+	if originInfo.ErrCode != 0 {
+		return info, errors.New(originInfo.ErrMsg)
+	}
+	msgList := make([]syncmsg.Message, 0)
+	if len(originInfo.MsgList) > 0 {
+		for _, msg := range originInfo.MsgList {
+			newMsg := syncmsg.Message{}
+			if val, ok := msg["msgid"].(string); ok {
+				newMsg.MsgID = val
+			}
+			if val, ok := msg["open_kfid"].(string); ok {
+				newMsg.OpenKFID = val
+			}
+			if val, ok := msg["external_userid"].(string); ok {
+				newMsg.ExternalUserID = val
+			}
+			if val, ok := msg["send_time"].(float64); ok {
+				newMsg.SendTime = uint64(val)
+			}
+			if val, ok := msg["origin"].(float64); ok {
+				newMsg.Origin = uint32(val)
+			}
+
+			if val, ok := msg["msgtype"].(string); ok {
+				newMsg.MsgType = val
+			}
+			if newMsg.MsgType == "event" {
+				if event, ok :=  msg["event"].(map[string]interface{}); ok {
+					if eType, ok := event["event_type"].(string); ok {
+						newMsg.EventType = eType
+					}
+				}
+			}
+			originData, err := json.Marshal(msg)
+			if err != nil {
+				return info, err
+			}
+			newMsg.OriginData = originData
+			msgList = append(msgList, newMsg)
+		}
+	}
+	return SyncMsgSchema{
+		ErrCode:    originInfo.ErrCode,
+		ErrMsg:     originInfo.ErrMsg,
+		NextCursor: originInfo.NextCursor,
+		HasMore:    originInfo.HasMore,
+		MsgList:    msgList,
+	}, nil
 }
