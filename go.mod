@@ -1,4 +1,4 @@
-module WeChatCustomerServiceSDK
+module github.com/NICEXAI/WeChatCustomerServiceSDK
 
 go 1.16
 

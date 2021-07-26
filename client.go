@@ -1,8 +1,8 @@
 package WeChatCustomerServiceSDK
 
 import (
-	"WeChatCustomerServiceSDK/cache"
 	"errors"
+	"github.com/NICEXAI/WeChatCustomerServiceSDK/cache"
 	"sync"
 	"time"
 )

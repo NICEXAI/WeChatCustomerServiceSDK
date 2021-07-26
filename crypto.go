@@ -1,8 +1,8 @@
 package WeChatCustomerServiceSDK
 
 import (
-	"WeChatCustomerServiceSDK/crypto"
 	"errors"
+	"github.com/NICEXAI/WeChatCustomerServiceSDK/crypto"
 )
 
 // CryptoOptions 微信服务器验证参数

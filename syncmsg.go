@@ -1,10 +1,10 @@
 package WeChatCustomerServiceSDK
 
 import (
-	"WeChatCustomerServiceSDK/util"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/NICEXAI/WeChatCustomerServiceSDK/util"
 )
 
 const (
