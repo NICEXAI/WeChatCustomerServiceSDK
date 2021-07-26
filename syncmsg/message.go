@@ -2,11 +2,12 @@ package syncmsg
 
 // BaseMessage 接收消息
 type BaseMessage struct {
-	MsgID string `json:"msgid"`							// 消息ID
-	OpenKFID string `json:"open_kfid"`					// 客服帐号ID
-	ExternalUserID string `json:"external_userid"`		// 客户UserID
-	SendTime uint64 `json:"send_time"`					// 消息发送时间
-	Origin uint32 `json:"origin"`						// 消息来源。3-客户回复的消息 4-系统推送的消息
+	MsgID string `json:"msgid"`								// 消息ID
+	OpenKFID string `json:"open_kfid"`						// 客服帐号ID
+	ExternalUserID string `json:"external_userid"`			// 客户UserID
+	ReceptionistUserID string `json:"servicer_userid"`		// 接待客服userID
+	SendTime uint64 `json:"send_time"`						// 消息发送时间
+	Origin uint32 `json:"origin"`							// 消息来源。3-客户回复的消息 4-系统推送的消息 5-客服回复消息
 }
 
 // Text 文本消息
