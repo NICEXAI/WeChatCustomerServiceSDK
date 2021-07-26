@@ -12,7 +12,7 @@ const (
 	// 上传临时素材
 	mediaUploadAddr = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s"
 	//获取临时素材
-	mediaGetAddr = "https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=%s&media_id=%s"
+	//mediaGetAddr = "https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=%s&media_id=%s"
 )
 
 // MediaUploadOptions 上传临时素材请求参数
