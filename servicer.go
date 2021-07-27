@@ -26,9 +26,9 @@ type ReceptionistOptions struct {
 type ReceptionistSchema struct {
 	BaseModel
 	ResultList []struct{
-		UserID string
+		UserID string `json:"userid"`
 		BaseModel
-	}
+	} `json:"result_list"`
 }
 
 // ReceptionistAdd 添加接待人员
