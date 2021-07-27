@@ -2,8 +2,7 @@ package WeChatCustomerServiceSDK
 
 import (
 	"encoding/json"
-	"errors"
-	"fmt"
+ 	"fmt"
 	"github.com/NICEXAI/WeChatCustomerServiceSDK/util"
 )
 
@@ -25,6 +24,7 @@ func (r *Client) GetAccessToken() (info AccessTokenSchema, err error) {
 	if err != nil {
 		return info, err
 	}
+	fmt.Println(string(data))
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
 		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
@@ -50,7 +50,7 @@ func (r *Client) initAccessToken() error {
 	//判断是否已初始化完成，如果己初始化则直接返回当前实例
 	token, err := r.getAccessToken()
 	if err != nil {
-		return errors.New("cache unavailable")
+		return NewSDKErr(50002)
 	}
 	if token == "" {
 		if err = r.RefreshAccessToken(); err != nil {

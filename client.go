@@ -1,7 +1,6 @@
 package WeChatCustomerServiceSDK
 
 import (
-	"errors"
 	"github.com/NICEXAI/WeChatCustomerServiceSDK/cache"
 	"sync"
 	"time"
@@ -39,7 +38,7 @@ type Client struct {
 // New 初始化微信客服实例
 func New(options Options) (client *Client, err error) {
 	if options.Cache == nil {
-		return nil, errors.New("the cache is nil, please set the cache first")
+		return nil, NewSDKErr(50001)
 	}
 
 	if options.ExpireTime == 0 {
