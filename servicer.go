@@ -2,7 +2,6 @@ package WeChatCustomerServiceSDK
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/NICEXAI/WeChatCustomerServiceSDK/util"
 )
@@ -39,7 +38,7 @@ func (r *Client) ReceptionistAdd(options ReceptionistOptions) (info Receptionist
 	}
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }
@@ -52,7 +51,7 @@ func (r *Client) ReceptionistDel(options ReceptionistOptions) (info Receptionist
 	}
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }
@@ -74,7 +73,7 @@ func (r *Client) ReceptionistList(kfID string) (info ReceptionistListSchema, err
 	}
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }

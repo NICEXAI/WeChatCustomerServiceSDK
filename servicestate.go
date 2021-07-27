@@ -2,7 +2,6 @@ package WeChatCustomerServiceSDK
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/NICEXAI/WeChatCustomerServiceSDK/util"
 )
@@ -40,7 +39,7 @@ func (r *Client) ServiceStateGet(options ServiceStateGetOptions) (info ServiceSt
 	}
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }
@@ -61,7 +60,7 @@ func (r *Client) ServiceStateTrans(options ServiceStateTransOptions) (info BaseM
 	}
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }

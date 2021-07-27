@@ -2,7 +2,6 @@ package WeChatCustomerServiceSDK
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/NICEXAI/WeChatCustomerServiceSDK/util"
 )
@@ -40,7 +39,7 @@ func (r *Client) AccountAdd(options AccountAddOptions) (info AccountAddSchema, e
 	}
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }
@@ -58,7 +57,7 @@ func (r *Client) AccountDel(options AccountDelOptions) (info BaseModel, err erro
 	}
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }
@@ -78,7 +77,7 @@ func (r *Client) AccountUpdate(options AccountUpdateOptions) (info BaseModel, er
 	}
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }
@@ -104,7 +103,7 @@ func (r *Client) AccountList() (info AccountListSchema, err error) {
 	}
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }
@@ -129,7 +128,7 @@ func (r *Client) AddContactWay(options AddContactWayOptions) (info AddContactWay
 	}
 	_ = json.Unmarshal(data, &info)
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }

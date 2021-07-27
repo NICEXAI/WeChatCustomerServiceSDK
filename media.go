@@ -2,7 +2,6 @@ package WeChatCustomerServiceSDK
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/NICEXAI/WeChatCustomerServiceSDK/util"
 	"mime/multipart"
@@ -55,7 +54,7 @@ func (r *Client) MediaUpload(options MediaUploadOptions) (info MediaUploadSchema
 	_ = json.Unmarshal(data, &info)
 	fmt.Println(string(data))
 	if info.ErrCode != 0 {
-		return info, errors.New(info.ErrMsg)
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
 }

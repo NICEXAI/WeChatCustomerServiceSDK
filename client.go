@@ -57,25 +57,8 @@ func New(options Options) (client *Client, err error) {
 		mutex:          sync.Mutex{},
 	}
 
-	//判断是否已初始化完成，如果己初始化则直接返回当前实例
-	token, err := client.getAccessToken()
-	if err != nil {
-		return nil, errors.New("cache unavailable")
-	}
-
-	if token == "" {
-		//初始化AccessToken
-		tokenInfo, err := client.GetAccessToken()
-		if err != nil {
-			return nil, err
-		}
-
-		if err = client.setAccessToken(tokenInfo.AccessToken); err != nil {
-			return nil, err
-		}
-		client.accessToken = tokenInfo.AccessToken
-	} else {
-		client.accessToken = token
+	if err = client.initAccessToken(); err != nil {
+		return nil, err
 	}
 
 	return client, nil
