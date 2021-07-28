@@ -20,6 +20,7 @@ type Options struct {
 	EncodingAESKey string			// 回调消息加解密参数是AES密钥的Base64编码，用于解密回调消息内容对应的密文
 	Cache cache.Cache				// 数据缓存
 	ExpireTime time.Duration		// 令牌过期时间
+	IsCloseCache bool				// 是否关闭自动缓存AccessToken, 默认缓存
 }
 
 // Client 微信客服实例
@@ -33,6 +34,7 @@ type Client struct {
 	eventQueue sync.Map				//事件队列
 	mutex      sync.Mutex
 	accessToken string				// 用户访问凭证
+	isCloseCache bool				// 是否自动缓存AccessToken, 默认缓存
 }
 
 // New 初始化微信客服实例
@@ -54,6 +56,7 @@ func New(options Options) (client *Client, err error) {
 		cache:          options.Cache,
 		eventQueue:     sync.Map{},
 		mutex:          sync.Mutex{},
+		isCloseCache:   options.IsCloseCache,
 	}
 
 	if err = client.initAccessToken(); err != nil {

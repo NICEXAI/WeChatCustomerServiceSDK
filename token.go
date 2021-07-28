@@ -47,6 +47,14 @@ func (r *Client) RefreshAccessToken() error {
 }
 
 func (r *Client) initAccessToken() error {
+	//如果关闭自动缓存则直接刷新AccessToken
+	if r.isCloseCache {
+		if err := r.RefreshAccessToken(); err != nil {
+			return err
+		}
+		return nil
+	}
+
 	//判断是否已初始化完成，如果己初始化则直接返回当前实例
 	token, err := r.getAccessToken()
 	if err != nil {
