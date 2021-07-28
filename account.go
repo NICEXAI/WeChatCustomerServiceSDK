@@ -84,9 +84,9 @@ func (r *Client) AccountUpdate(options AccountUpdateOptions) (info BaseModel, er
 
 // AccountInfoSchema 客服详情
 type AccountInfoSchema struct {
-	OpenKFID string `json:"open_kfid"`						// 客服帐号ID, 不多于64字节
-	Name string `json:"name"`								// 客服帐号名称, 不多于16个字符
-	MediaID string `json:"media_id"`						// 客服头像临时素材。可以调用上传临时素材接口获取, 不多于128个字节
+	OpenKFID string `json:"open_kfid"`						// 客服帐号ID
+	Name string `json:"name"`								// 客服帐号名称
+	Avatar string `json:"avatar"`							// 客服头像URL
 }
 
 // AccountListSchema 获取客服账号列表响应内容
