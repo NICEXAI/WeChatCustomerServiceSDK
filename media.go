@@ -11,7 +11,7 @@ const (
 	// 上传临时素材
 	mediaUploadAddr = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s"
 	//获取临时素材
-	//mediaGetAddr = "https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=%s&media_id=%s"
+	mediaGetAddr = "https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=%s&media_id=%s"
 )
 
 // MediaUploadOptions 上传临时素材请求参数
@@ -57,4 +57,9 @@ func (r *Client) MediaUpload(options MediaUploadOptions) (info MediaUploadSchema
 		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
 	}
 	return info, nil
+}
+
+// MediaGet 获取临时素材
+func (r *Client) MediaGet(mediaID string) string {
+	return fmt.Sprintf(mediaGetAddr, r.accessToken, mediaID)
 }
