@@ -21,6 +21,8 @@ const (
 	SDKAccessTokenInvalid Error = "AccessToken 无效"
 	// SDKAccessTokenExpired 错误码：42001
 	SDKAccessTokenExpired Error = "AccessToken 已过期"
+	// SDKWeWorkAlready 错误码：95011
+	SDKWeWorkAlready Error 		= "已在企业微信使用微信客服"
 )
 
 //输出错误信息
@@ -41,6 +43,8 @@ func NewSDKErr(code int, msgList ...string) Error {
 		return SDKAccessTokenExpired
 	case 40014:
 		return SDKAccessTokenInvalid
+	case 95011:
+		return SDKWeWorkAlready
 	default:
 		//返回未知的自定义错误
 		if len(msgList) > 0 {
