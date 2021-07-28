@@ -55,6 +55,24 @@ func (r Message) GetLocationMessage() (info Location, err error) {
 	return info, err
 }
 
+// GetLinkMessage 获取链接消息
+func (r Message) GetLinkMessage() (info Link, err error) {
+	err = json.Unmarshal(r.OriginData, &info)
+	return info, err
+}
+
+// GetBusinessCardMessage 获取名片消息
+func (r Message) GetBusinessCardMessage() (info BusinessCard, err error) {
+	err = json.Unmarshal(r.OriginData, &info)
+	return info, err
+}
+
+// GetMiniProgramMessage 获取小程序消息
+func (r Message) GetMiniProgramMessage() (info MiniProgram, err error) {
+	err = json.Unmarshal(r.OriginData, &info)
+	return info, err
+}
+
 // GetEnterSessionEvent 用户进入会话事件
 func (r Message) GetEnterSessionEvent() (info EnterSessionEvent, err error) {
 	err = json.Unmarshal(r.OriginData, &info)

@@ -68,6 +68,36 @@ type Location struct {
 	} `json:"location"`									// 地理位置消息
 }
 
+// Link 链接消息
+type Link struct {
+	MsgType string `json:"msgtype"`						// 消息类型，此时固定为：link
+	Link struct{
+		Title string `json:"title"`						// 标题
+		Desc string `json:"desc"`						// 描述
+		URL string `json:"url"`							// 点击后跳转的链接
+		PicURL string `json:"pic_url"`					// 缩略图链接
+	} `json:"link"`										// 链接消息
+}
+
+// BusinessCard 名片消息
+type BusinessCard struct {
+	MsgType string `json:"msgtype"`						// 消息类型，此时固定为：business_card
+	BusinessCard struct{
+		UserID string `json:"userid"`					// 名片 userid
+	} `json:"business_card"`							// 名片消息
+}
+
+// MiniProgram 小程序消息
+type MiniProgram struct {
+	MsgType string `json:"msgtype"`						// 消息类型，此时固定为：miniprogram
+	MiniProgram struct{
+		AppID string `json:"appid"`						// 小程序appid，必须是关联到企业的小程序应用
+		Title string `json:"title"`						// 小程序消息标题，最多64个字节，超过会自动截断
+		ThumbMediaID string `json:"thumb_media_id"`		// 小程序消息封面的mediaid，封面图建议尺寸为520*416
+		PagePath string `json:"pagepath"`				// 点击消息卡片后进入的小程序页面路径
+	} `json:"miniprogram"`								// 小程序消息
+}
+
 // EventMessage 事件消息
 type EventMessage struct {
 	BaseMessage
