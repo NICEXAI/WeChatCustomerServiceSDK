@@ -17,6 +17,8 @@ const (
 	SDKUnknownError Error		= "未知错误"
 	// SDKInvalidCredential 错误码：40001
 	SDKInvalidCredential Error	= "不合法的secret参数"
+	// SDKAccessTokenInvalid 错误码：40014
+	SDKAccessTokenInvalid Error = "AccessToken 无效"
 	// SDKAccessTokenExpired 错误码：42001
 	SDKAccessTokenExpired Error = "AccessToken 已过期"
 )
@@ -37,6 +39,8 @@ func NewSDKErr(code int, msgList ...string) Error {
 		return SDKInvalidCredential
 	case 42001:
 		return SDKAccessTokenExpired
+	case 40014:
+		return SDKAccessTokenInvalid
 	default:
 		//返回未知的自定义错误
 		if len(msgList) > 0 {
