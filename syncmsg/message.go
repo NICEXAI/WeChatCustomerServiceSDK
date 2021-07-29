@@ -70,6 +70,7 @@ type Location struct {
 
 // Link 链接消息
 type Link struct {
+	BaseMessage
 	MsgType string `json:"msgtype"`						// 消息类型，此时固定为：link
 	Link struct{
 		Title string `json:"title"`						// 标题
@@ -81,6 +82,7 @@ type Link struct {
 
 // BusinessCard 名片消息
 type BusinessCard struct {
+	BaseMessage
 	MsgType string `json:"msgtype"`						// 消息类型，此时固定为：business_card
 	BusinessCard struct{
 		UserID string `json:"userid"`					// 名片 userid
@@ -89,6 +91,7 @@ type BusinessCard struct {
 
 // MiniProgram 小程序消息
 type MiniProgram struct {
+	BaseMessage
 	MsgType string `json:"msgtype"`						// 消息类型，此时固定为：miniprogram
 	MiniProgram struct{
 		AppID string `json:"appid"`						// 小程序appid，必须是关联到企业的小程序应用
