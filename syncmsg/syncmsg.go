@@ -76,6 +76,8 @@ func (r Message) GetMiniProgramMessage() (info MiniProgram, err error) {
 // GetEnterSessionEvent 用户进入会话事件
 func (r Message) GetEnterSessionEvent() (info EnterSessionEvent, err error) {
 	err = json.Unmarshal(r.OriginData, &info)
+	info.OpenKFID = info.Event.OpenKFID
+	info.ExternalUserID = info.Event.ExternalUserID
 	return info, err
 }
 
@@ -94,5 +96,7 @@ func (r Message) GetReceptionistStatusChangeEvent() (info ReceptionistStatusChan
 // GetSessionStatusChangeEvent 会话状态变更事件
 func (r Message) GetSessionStatusChangeEvent() (info SessionStatusChangeEvent, err error) {
 	err = json.Unmarshal(r.OriginData, &info)
+	info.OpenKFID = info.Event.OpenKFID
+	info.ExternalUserID = info.Event.ExternalUserID
 	return info, err
 }

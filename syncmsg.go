@@ -44,6 +44,7 @@ func (r *Client) SyncMsg(options SyncMsgOptions) (info SyncMsgSchema, err error)
 	if err != nil {
 		return info, err
 	}
+	fmt.Println(string(data))
 	originInfo := syncMsgSchema{}
 	if err = json.Unmarshal(data, &originInfo); err != nil {
 		return info, err
