@@ -128,6 +128,31 @@ type MsgSendFailEvent struct {
 		OpenKFID string `json:"open_kfid"`				// 客服账号ID
 		ExternalUserID string `json:"external_userid"`	// 客户UserID
 		FailMsgID string `json:"fail_msgid"`			// 发送失败的消息msgid
-		FailType uint32 `json:"fail_type"`				// 失败类型。0-未知原因 10-用户拒收
+		FailType uint32 `json:"fail_type"`				// 失败类型。0-未知原因 1-客服账号已删除 2-应用已关闭 4-会话已过期，超过48小时 5-会话已关闭 6-超过5条限制 7-未绑定视频号 8-主体未验证 9-未绑定视频号且主体未验证 10-用户拒收
+	} `json:"event"`									// 事件消息
+}
+
+// ReceptionistStatusChangeEvent 客服人员接待状态变更事件
+type ReceptionistStatusChangeEvent struct {
+	BaseMessage
+	MsgType string `json:"msgtype"`							// 消息类型，此时固定为：event
+	Event struct{
+		EventType string `json:"event_type"`				// 事件类型。此处固定为：servicer_status_change
+		ReceptionistUserID string `json:"servicer_userid"`	// 客服人员userid
+		Status uint32 `json:"status"`						// 状态类型。1-接待中 2-停止接待
+	} `json:"event"`
+}
+
+// SessionStatusChangeEvent 会话状态变更事件
+type SessionStatusChangeEvent struct {
+	BaseMessage
+	MsgType string `json:"msgtype"`										// 消息类型，此时固定为：event
+	Event struct{
+		EventType string `json:"event_type"`							// 事件类型。此处固定为：session_status_change
+		OpenKFID string `json:"open_kfid"`								// 客服账号ID
+		ExternalUserID string `json:"external_userid"`					// 客户UserID
+		ChangeType uint32 `json:"change_type"`							// 变更类型。1-从接待池接入会话 2-转接会话 3-结束会话
+		OldReceptionistUserID string `json:"old_servicer_userid"`		// 老的客服人员userid。仅change_type为2和3有值
+		NewReceptionistUserID string `json:"new_servicer_userid"`		// 新的客服人员userid。仅change_type为1和2有值
 	} `json:"event"`									// 事件消息
 }

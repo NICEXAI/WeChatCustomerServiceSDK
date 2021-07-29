@@ -84,3 +84,15 @@ func (r Message) GetMsgSendFailEvent() (info MsgSendFailEvent, err error) {
 	err = json.Unmarshal(r.OriginData, &info)
 	return info, err
 }
+
+// GetReceptionistStatusChangeEvent 客服人员接待状态变更事件
+func (r Message) GetReceptionistStatusChangeEvent() (info ReceptionistStatusChangeEvent, err error) {
+	err = json.Unmarshal(r.OriginData, &info)
+	return info, err
+}
+
+// GetSessionStatusChangeEvent 会话状态变更事件
+func (r Message) GetSessionStatusChangeEvent() (info SessionStatusChangeEvent, err error) {
+	err = json.Unmarshal(r.OriginData, &info)
+	return info, err
+}
