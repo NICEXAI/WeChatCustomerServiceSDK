@@ -8,7 +8,7 @@ import (
 
 const (
 	//获取配置的专员与客户群
-	upgradeServiceConfigAddr = " https://qyapi.weixin.qq.com/cgi-bin/kf/customer/get_upgrade_service_config?access_token=%s"
+	upgradeServiceConfigAddr = "https://qyapi.weixin.qq.com/cgi-bin/kf/customer/get_upgrade_service_config?access_token=%s"
 	// 为客户升级为专员或客户群服务
 	upgradeService = "https://qyapi.weixin.qq.com/cgi-bin/kf/customer/upgrade_service?access_token=%s"
 	//为客户取消推荐
