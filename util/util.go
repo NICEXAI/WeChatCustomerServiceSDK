@@ -80,3 +80,35 @@ func HttpPostFile(path string, options FileOptions) ([]byte, error) {
 	}
 	return ioutil.ReadAll(resp.Body)
 }
+
+// HttpPostOriginFile POST上传文件
+func HttpPostOriginFile(path, fileName string, size int, body []byte) ([]byte, error) {
+	bodyBuf := bytes.Buffer{}
+	bodyWriter := multipart.NewWriter(&bodyBuf)
+
+	fileWriter, err := bodyWriter.CreateFormFile("media", fileName)
+	if err != nil {
+		return nil, err
+	}
+
+	if _, err = io.Copy(fileWriter, bytes.NewReader(body)); err != nil {
+		return nil, err
+	}
+
+	contentType := bodyWriter.FormDataContentType()
+	_ = bodyWriter.Close()
+
+	_ = bodyWriter.WriteField("filelength", strconv.Itoa(size))
+
+	resp, err := http.Post(path, contentType, &bodyBuf)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, err
+	}
+	return ioutil.ReadAll(resp.Body)
+}

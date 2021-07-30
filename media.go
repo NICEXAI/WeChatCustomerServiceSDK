@@ -59,6 +59,26 @@ func (r *Client) MediaUpload(options MediaUploadOptions) (info MediaUploadSchema
 	return info, nil
 }
 
+// MediaOriginUpload 上传临时素材
+//上传的媒体文件限制
+//所有文件size必须大于5个字节
+//图片（image）：2MB，支持JPG,PNG格式
+//语音（voice） ：2MB，播放长度不超过60s，仅支持AMR格式
+//视频（video） ：10MB，支持MP4格式
+//普通文件（file）：20MB
+func (r *Client) MediaOriginUpload(fileName, fileType string, size int, body []byte) (info MediaUploadSchema, err error) {
+	data, err := util.HttpPostOriginFile(fmt.Sprintf(mediaUploadAddr, r.accessToken, fileType), fileName, size, body)
+	if err != nil {
+		return info, err
+	}
+	_ = json.Unmarshal(data, &info)
+	fmt.Println(string(data))
+	if info.ErrCode != 0 {
+		return info, NewSDKErr(info.ErrCode, info.ErrMsg)
+	}
+	return info, nil
+}
+
 // MediaGet 获取临时素材
 func (r *Client) MediaGet(mediaID string) string {
 	return fmt.Sprintf(mediaGetAddr, r.accessToken, mediaID)
