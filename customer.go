@@ -21,7 +21,7 @@ type CustomerSchema struct {
 	NickName string `json:"nickname"`									// 微信昵称
 	Avatar string `json:"avatar"`										// 微信头像。第三方不可获取
 	Gender int `json:"gender"`											// 性别
-	UnionID string `json:"unionid"`										// unionid，需要绑定微信开发者帐号才能获取到，查看绑定方法: https://open.work.weixin.qq.com/kf/doc/92512/93143/94769#%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%AE%A2%E6%88%B7%E7%9A%84unionid
+	UnionID string `json:"unionid"`			 							// unionid，需要绑定微信开发者帐号才能获取到，查看绑定方法: https://open.work.weixin.qq.com/kf/doc/92512/93143/94769#%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%AE%A2%E6%88%B7%E7%9A%84unionid
 }
 
 // CustomerBatchGetSchema 获取客户基本信息响应内容
