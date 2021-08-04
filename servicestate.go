@@ -33,7 +33,10 @@ type ServiceStateGetSchema struct {
 //3	由人工接待	人工接待中。可选择结束会话
 //4	已结束	会话已经结束。不允许变更会话状态，等待用户重新发起咨询
 func (r *Client) ServiceStateGet(options ServiceStateGetOptions) (info ServiceStateGetSchema, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(serviceStateGetAddr, r.accessToken), options)
+	target := fmt.Sprintf(serviceStateGetAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}
@@ -54,7 +57,10 @@ type ServiceStateTransOptions struct {
 
 // ServiceStateTrans 变更会话状态
 func (r *Client) ServiceStateTrans(options ServiceStateTransOptions) (info BaseModel, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(serviceStateTransAddr, r.accessToken), options)
+	target := fmt.Sprintf(serviceStateTransAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}

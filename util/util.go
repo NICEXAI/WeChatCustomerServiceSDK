@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"strconv"
 )
 
@@ -111,4 +112,13 @@ func HttpPostOriginFile(path, fileName string, size int, body []byte) ([]byte, e
 		return nil, err
 	}
 	return ioutil.ReadAll(resp.Body)
+}
+
+// ParseRoute 解析路由
+func ParseRoute(path string) string {
+	route, err := url.ParseRequestURI(path)
+	if err != nil {
+		return ""
+	}
+	return route.Path
 }

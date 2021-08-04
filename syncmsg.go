@@ -40,7 +40,10 @@ type SyncMsgSchema struct {
 
 // SyncMsg 获取消息
 func (r *Client) SyncMsg(options SyncMsgOptions) (info SyncMsgSchema, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(syncMsgAddr, r.accessToken), options)
+	target := fmt.Sprintf(syncMsgAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}

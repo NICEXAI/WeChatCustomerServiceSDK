@@ -57,7 +57,10 @@ type UpgradeServiceOptions struct {
 
 // UpgradeService 为客户升级为专员或客户群服务
 func (r *Client) UpgradeService(options UpgradeServiceOptions) (info BaseModel, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(upgradeService, r.accessToken), options)
+	target := fmt.Sprintf(upgradeService, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}
@@ -81,7 +84,10 @@ type UpgradeMemberServiceOptions struct {
 
 // UpgradeMemberService 为客户升级为专员服务
 func (r *Client) UpgradeMemberService(options UpgradeMemberServiceOptions) (info BaseModel, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(upgradeService, r.accessToken), options)
+	target := fmt.Sprintf(upgradeService, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}
@@ -105,7 +111,10 @@ type UpgradeServiceGroupChatOptions struct {
 
 // UpgradeGroupChatService 为客户升级为客户群服务
 func (r *Client) UpgradeGroupChatService(options UpgradeServiceGroupChatOptions) (info BaseModel, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(upgradeService, r.accessToken), options)
+	target := fmt.Sprintf(upgradeService, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}
@@ -124,7 +133,10 @@ type UpgradeServiceCancelOptions struct {
 
 // UpgradeServiceCancel 为客户取消推荐
 func (r *Client) UpgradeServiceCancel(options UpgradeServiceCancelOptions) (info BaseModel, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(upgradeServiceCancel, r.accessToken), options)
+	target := fmt.Sprintf(upgradeServiceCancel, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}

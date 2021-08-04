@@ -47,7 +47,10 @@ func (r *Client) MediaUpload(options MediaUploadOptions) (info MediaUploadSchema
 		FileSize: options.FileSize,
 		File:     options.File,
 	}
-	data, err := util.HttpPostFile(fmt.Sprintf(mediaUploadAddr, r.accessToken, options.Type), fileOptions)
+	target := fmt.Sprintf(mediaUploadAddr, r.accessToken, options.Type)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPostFile(target, fileOptions)
 	if err != nil {
 		return info, err
 	}
@@ -67,7 +70,10 @@ func (r *Client) MediaUpload(options MediaUploadOptions) (info MediaUploadSchema
 //视频（video） ：10MB，支持MP4格式
 //普通文件（file）：20MB
 func (r *Client) MediaOriginUpload(fileName, fileType string, size int, body []byte) (info MediaUploadSchema, err error) {
-	data, err := util.HttpPostOriginFile(fmt.Sprintf(mediaUploadAddr, r.accessToken, fileType), fileName, size, body)
+	target := fmt.Sprintf(mediaUploadAddr, r.accessToken, fileType)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPostOriginFile(target, fileName, size, body)
 	if err != nil {
 		return info, err
 	}

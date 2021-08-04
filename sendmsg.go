@@ -19,7 +19,10 @@ type SendMsgSchema struct {
 
 // SendMsg 获取消息
 func (r *Client) SendMsg(options interface{}) (info SendMsgSchema, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(sendMsgAddr, r.accessToken), options)
+	target := fmt.Sprintf(sendMsgAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}

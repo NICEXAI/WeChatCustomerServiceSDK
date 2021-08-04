@@ -20,7 +20,10 @@ type AccessTokenSchema struct {
 
 // GetAccessToken 获取调用凭证access_token
 func (r *Client) GetAccessToken() (info AccessTokenSchema, err error) {
-	data, err := util.HttpGet(fmt.Sprintf(getTokenAddr, r.corpID, r.secret))
+	target := fmt.Sprintf(getTokenAddr, r.corpID, r.secret)
+	r.recordUpdate(target)
+
+	data, err := util.HttpGet(target)
 	if err != nil {
 		return info, err
 	}

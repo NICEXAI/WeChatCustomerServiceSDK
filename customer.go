@@ -33,7 +33,10 @@ type CustomerBatchGetSchema struct {
 
 // CustomerBatchGet 客户基本信息获取
 func (r *Client) CustomerBatchGet(options CustomerBatchGetOptions) (info CustomerBatchGetSchema, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(customerBatchGetAddr, r.accessToken), options)
+	target := fmt.Sprintf(customerBatchGetAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}

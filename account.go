@@ -33,7 +33,10 @@ type AccountAddSchema struct {
 
 // AccountAdd 添加客服账号
 func (r *Client) AccountAdd(options AccountAddOptions) (info AccountAddSchema, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(accountAddAddr, r.accessToken), options)
+	target := fmt.Sprintf(accountAddAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}
@@ -51,7 +54,10 @@ type AccountDelOptions struct {
 
 // AccountDel 删除客服账号
 func (r *Client) AccountDel(options AccountDelOptions) (info BaseModel, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(accountDelAddr, r.accessToken), options)
+	target := fmt.Sprintf(accountDelAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}
@@ -71,7 +77,10 @@ type AccountUpdateOptions struct {
 
 // AccountUpdate 修复客服账号
 func (r *Client) AccountUpdate(options AccountUpdateOptions) (info BaseModel, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(accountUpdateAddr, r.accessToken), options)
+	target := fmt.Sprintf(accountUpdateAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}
@@ -97,7 +106,10 @@ type AccountListSchema struct {
 
 // AccountList 获取客服账号列表
 func (r *Client) AccountList() (info AccountListSchema, err error) {
-	data, err := util.HttpGet(fmt.Sprintf(accountListAddr, r.accessToken))
+	target := fmt.Sprintf(accountListAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpGet(target)
 	if err != nil {
 		return info, err
 	}
@@ -122,7 +134,10 @@ type AddContactWaySchema struct {
 
 // AddContactWay 获取客服账号链接
 func (r *Client) AddContactWay(options AddContactWayOptions) (info AddContactWaySchema, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(addContactWayAddr, r.accessToken), options)
+	target := fmt.Sprintf(addContactWayAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}

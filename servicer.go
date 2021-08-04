@@ -32,7 +32,10 @@ type ReceptionistSchema struct {
 
 // ReceptionistAdd 添加接待人员
 func (r *Client) ReceptionistAdd(options ReceptionistOptions) (info ReceptionistSchema, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(receptionistAddAddr, r.accessToken), options)
+	target := fmt.Sprintf(receptionistAddAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}
@@ -45,7 +48,10 @@ func (r *Client) ReceptionistAdd(options ReceptionistOptions) (info Receptionist
 
 // ReceptionistDel 删除接待人员
 func (r *Client) ReceptionistDel(options ReceptionistOptions) (info ReceptionistSchema, err error) {
-	data, err := util.HttpPost(fmt.Sprintf(receptionistDelAddr, r.accessToken), options)
+	target := fmt.Sprintf(receptionistDelAddr, r.accessToken)
+	r.recordUpdate(target)
+
+	data, err := util.HttpPost(target, options)
 	if err != nil {
 		return info, err
 	}
@@ -67,7 +73,10 @@ type ReceptionistListSchema struct {
 
 // ReceptionistList 获取接待人员列表
 func (r *Client) ReceptionistList(kfID string) (info ReceptionistListSchema, err error) {
-	data, err := util.HttpGet(fmt.Sprintf(receptionistListAddr, r.accessToken, kfID))
+	target := fmt.Sprintf(receptionistListAddr, r.accessToken, kfID)
+	r.recordUpdate(target)
+
+	data, err := util.HttpGet(target)
 	if err != nil {
 		return info, err
 	}

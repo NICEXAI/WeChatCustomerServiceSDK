@@ -21,6 +21,8 @@ type Options struct {
 	Cache cache.Cache				// 数据缓存
 	ExpireTime time.Duration		// 令牌过期时间
 	IsCloseCache bool				// 是否关闭自动缓存AccessToken, 默认缓存
+	MonitorOpen bool				// 是否开启监控
+	MonitorLogExpireTime time.Duration	// 监控日志过期时间，默认三天
 }
 
 // Client 微信客服实例
@@ -35,6 +37,8 @@ type Client struct {
 	mutex      sync.Mutex
 	accessToken string				// 用户访问凭证
 	isCloseCache bool				// 是否自动缓存AccessToken, 默认缓存
+	monitorOpen bool				// 是否开启监控
+	monitorLogExpireTime time.Duration	// 监控日志过期时间，默认三天
 }
 
 // New 初始化微信客服实例
@@ -44,7 +48,11 @@ func New(options Options) (client *Client, err error) {
 	}
 
 	if options.ExpireTime == 0 {
-		options.ExpireTime = 6000
+		options.ExpireTime = 6000 * time.Second
+	}
+
+	if options.MonitorOpen && options.MonitorLogExpireTime == 0 {
+		options.MonitorLogExpireTime = 3 * 24 * 3600
 	}
 
 	client = &Client{
@@ -57,6 +65,8 @@ func New(options Options) (client *Client, err error) {
 		eventQueue:     sync.Map{},
 		mutex:          sync.Mutex{},
 		isCloseCache:   options.IsCloseCache,
+		monitorOpen:    options.MonitorOpen,
+		monitorLogExpireTime: options.MonitorLogExpireTime,
 	}
 
 	if err = client.initAccessToken(); err != nil {

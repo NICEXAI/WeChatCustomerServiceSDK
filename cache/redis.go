@@ -123,3 +123,7 @@ func (r *Redis) Get(k string) (string, error) {
 	}
 	return con, nil
 }
+
+func (r *Redis) Scan(cursor uint64, match string, count int64) (keys []string, newCursor uint64, err error) {
+	return r.Point.Scan(context.TODO(), cursor, match, count).Result()
+}
