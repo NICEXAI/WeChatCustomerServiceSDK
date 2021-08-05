@@ -69,8 +69,10 @@ func New(options Options) (client *Client, err error) {
 		monitorLogExpireTime: options.MonitorLogExpireTime,
 	}
 
-	if err = client.initAccessToken(); err != nil {
-		return nil, err
+	if options.Secret != "" {
+		if err = client.initAccessToken(); err != nil {
+			return nil, err
+		}
 	}
 
 	return client, nil
