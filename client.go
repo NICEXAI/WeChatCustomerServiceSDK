@@ -59,8 +59,10 @@ func New(options Options) (client *Client, err error) {
 		isCloseCache:   options.IsCloseCache,
 	}
 
-	if err = client.initAccessToken(); err != nil {
-		return nil, err
+	if options.Secret != "" {
+		if err = client.initAccessToken(); err != nil {
+			return nil, err
+		}
 	}
 
 	return client, nil
