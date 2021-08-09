@@ -21,6 +21,8 @@ const (
 	SDKInvalidCorpID Error		= "无效的 CorpID"
 	// SDKAccessTokenInvalid 错误码：40014
 	SDKAccessTokenInvalid Error = "AccessToken 无效"
+	// SDKAccessTokenMissing 错误码：41001
+	SDKAccessTokenMissing Error = "缺少AccessToken参数"
 	// SDKAccessTokenExpired 错误码：42001
 	SDKAccessTokenExpired Error = "AccessToken 已过期"
 	// SDKApiFreqOutOfLimit 错误码：45009
@@ -43,6 +45,8 @@ func NewSDKErr(code int, msgList ...string) Error {
 		return SDKCacheUnavailable
 	case 40001:
 		return SDKInvalidCredential
+	case 41001:
+		return SDKAccessTokenMissing
 	case 42001:
 		return SDKAccessTokenExpired
 	case 40013:
