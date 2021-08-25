@@ -48,7 +48,7 @@ func New(options Options) (client *Client, err error) {
 	}
 
 	if options.ExpireTime == 0 {
-		options.ExpireTime = 6000 * time.Second
+		options.ExpireTime = 6000
 	}
 
 	if options.MonitorOpen && options.MonitorLogExpireTime == 0 {
