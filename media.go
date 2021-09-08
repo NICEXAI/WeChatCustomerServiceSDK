@@ -17,21 +17,21 @@ const (
 // MediaUploadOptions 上传临时素材请求参数
 type MediaUploadOptions struct {
 	//上传文件类型
-	Type string `json:"type"`							// 媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件（file）
+	Type string `json:"type"` // 媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件（file）
 	//文件名
-	FileName string `json:"fileName"`					// 文件名
+	FileName string `json:"fileName"` // 文件名
 	//文件大小
-	FileSize int64 `json:"fileSize"`					// 文件大小
+	FileSize int64 `json:"fileSize"` // 文件大小
 	//文件内容
-	File multipart.File									// 文件内容
+	File multipart.File // 文件内容
 }
 
 // MediaUploadSchema 上传临时素材响应内容
 type MediaUploadSchema struct {
 	BaseModel
-	Type string `json:"type"`							// 媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)
-	MediaID string `json:"media_id"`					// 媒体文件上传后获取的唯一标识，3天内有效
-	CreatedAt string `json:"created_at"`				// 媒体文件上传时间戳
+	Type      string `json:"type"`       // 媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)
+	MediaID   string `json:"media_id"`   // 媒体文件上传后获取的唯一标识，3天内有效
+	CreatedAt string `json:"created_at"` // 媒体文件上传时间戳
 }
 
 // MediaUpload 上传临时素材

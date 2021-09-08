@@ -22,7 +22,7 @@ type Redis struct {
 type RedisOptions struct {
 	Addr     string
 	Password string
-	DB int
+	DB       int
 }
 
 func NewRedis(options RedisOptions) *Redis {
@@ -49,7 +49,7 @@ func NewRedis(options RedisOptions) *Redis {
 				if pbFnList != nil {
 					cbList, ok := pbFnList.([]func(message string))
 					if ok {
-						for _, cb := range cbList{
+						for _, cb := range cbList {
 							cb(msg.Payload)
 						}
 					}
@@ -59,7 +59,7 @@ func NewRedis(options RedisOptions) *Redis {
 				if globalFnList != nil {
 					cbList, ok := globalFnList.([]func(message string))
 					if ok {
-						for _, cb := range cbList{
+						for _, cb := range cbList {
 							cb(msg.Payload)
 						}
 					}
@@ -95,7 +95,7 @@ func (r *Redis) Subscribe(k string, pb func(message string)) {
 }
 
 // SubscribeAllEvents 订阅所有键过期事件
-func (r* Redis) SubscribeAllEvents(pb func(message string))  {
+func (r *Redis) SubscribeAllEvents(pb func(message string)) {
 	var cbList []func(message string)
 	pbFnList, ok := r.PbFns.Load(GlobalEvent)
 	if ok {
@@ -113,7 +113,7 @@ func (r* Redis) SubscribeAllEvents(pb func(message string))  {
 }
 
 func (r *Redis) Set(k, v string, expires time.Duration) error {
-	return r.Point.Set(context.TODO(), k, v, expires * time.Second).Err()
+	return r.Point.Set(context.TODO(), k, v, expires*time.Second).Err()
 }
 
 func (r *Redis) Get(k string) (string, error) {

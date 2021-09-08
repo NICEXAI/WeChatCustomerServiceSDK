@@ -42,11 +42,11 @@ func HttpPost(path string, body interface{}) ([]byte, error) {
 // FileOptions 文件上传参数
 type FileOptions struct {
 	//文件名
-	FileName string `json:"fileName"`					// 文件名
+	FileName string `json:"fileName"` // 文件名
 	//文件大小
-	FileSize int64 `json:"fileSize"`					// 文件大小
+	FileSize int64 `json:"fileSize"` // 文件大小
 	//文件内容
-	File multipart.File									// 文件内容
+	File multipart.File // 文件内容
 }
 
 // HttpPostFile POST上传文件

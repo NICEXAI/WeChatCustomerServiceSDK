@@ -2,7 +2,7 @@ package WeChatCustomerServiceSDK
 
 import (
 	"encoding/json"
- 	"fmt"
+	"fmt"
 	"github.com/NICEXAI/WeChatCustomerServiceSDK/util"
 )
 
@@ -14,8 +14,8 @@ const (
 // AccessTokenSchema 获取调用凭证响应数据
 type AccessTokenSchema struct {
 	BaseModel
-	AccessToken string `json:"access_token"`				// 获取到的凭证，最长为512字节
-	ExpiresIn int `json:"expires_in"`						// 凭证的有效时间（秒）
+	AccessToken string `json:"access_token"` // 获取到的凭证，最长为512字节
+	ExpiresIn   int    `json:"expires_in"`   // 凭证的有效时间（秒）
 }
 
 // GetAccessToken 获取调用凭证access_token
@@ -70,11 +70,10 @@ func (r *Client) initAccessToken() error {
 	return nil
 }
 
-
 func (r *Client) getAccessToken() (string, error) {
 	return r.cache.Get("wechat:kf:" + r.corpID)
 }
 
 func (r *Client) setAccessToken(token string) error {
-	return r.cache.Set("wechat:kf:" + r.corpID, token, r.expireTime)
+	return r.cache.Set("wechat:kf:"+r.corpID, token, r.expireTime)
 }

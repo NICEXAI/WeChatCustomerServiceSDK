@@ -15,15 +15,15 @@ const (
 
 // ServiceStateGetOptions 获取会话状态请求参数
 type ServiceStateGetOptions struct {
-	OpenKFID string `json:"open_kfid"`							// 客服帐号ID
-	ExternalUserID string `json:"external_userid"`				// 微信客户的external_userid
+	OpenKFID       string `json:"open_kfid"`       // 客服帐号ID
+	ExternalUserID string `json:"external_userid"` // 微信客户的external_userid
 }
 
 // ServiceStateGetSchema 获取会话状态响应内容
 type ServiceStateGetSchema struct {
 	BaseModel
-	ServiceState int `json:"service_state"`						// 当前的会话状态，状态定义参考概述中的表格
-	ServiceUserID string `json:"service_userid"`				// 接待人员的userid，仅当state=3时有效
+	ServiceState  int    `json:"service_state"`  // 当前的会话状态，状态定义参考概述中的表格
+	ServiceUserID string `json:"service_userid"` // 接待人员的userid，仅当state=3时有效
 }
 
 // ServiceStateGet 获取会话状态
@@ -47,10 +47,10 @@ func (r *Client) ServiceStateGet(options ServiceStateGetOptions) (info ServiceSt
 
 // ServiceStateTransOptions 变更会话状态请求参数
 type ServiceStateTransOptions struct {
-	OpenKFID string `json:"open_kfid"`							// 客服帐号ID
-	ExternalUserID string `json:"external_userid"`				// 微信客户的external_userid
-	ServiceState int `json:"service_state"`						// 变更的目标状态，状态定义和所允许的变更可参考概述中的流程图和表格
-	ServicerUserID string `json:"servicer_userid"`				// 接待人员的userid，当state=3时要求必填，接待人员须处于“正在接待”中
+	OpenKFID       string `json:"open_kfid"`       // 客服帐号ID
+	ExternalUserID string `json:"external_userid"` // 微信客户的external_userid
+	ServiceState   int    `json:"service_state"`   // 变更的目标状态，状态定义和所允许的变更可参考概述中的流程图和表格
+	ServicerUserID string `json:"servicer_userid"` // 接待人员的userid，当state=3时要求必填，接待人员须处于“正在接待”中
 }
 
 // ServiceStateTrans 变更会话状态
