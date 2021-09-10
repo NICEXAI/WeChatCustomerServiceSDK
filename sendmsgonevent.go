@@ -21,7 +21,7 @@ type SendMsgOnEventSchema struct {
 //「进入会话事件」响应消息：
 // 如果满足通过API下发欢迎语条件（条件为：1. 企业没有在管理端配置了原生欢迎语；2. 用户在过去48小时里未收过欢迎语，且未向该用户发过消息），则用户进入会话事件会额外返回一个welcome_code，开发者以此为凭据调用接口（填到该接口code参数），即可向客户发送客服欢迎语。
 // 为了保证用户体验以及避免滥用，开发者仅可在收到相关事件后20秒内调用，且只可调用一次。
-func (r *Client) SendMsgOnEvent(options interface{}) (info SendMsgSchema, err error) {
+func (r *Client) SendMsgOnEvent(options interface{}) (info SendMsgOnEventSchema, err error) {
 	data, err := util.HttpPost(fmt.Sprintf(sendMsgOnEventAddr, r.accessToken), options)
 	if err != nil {
 		return info, err
