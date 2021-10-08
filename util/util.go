@@ -46,7 +46,7 @@ type FileOptions struct {
 	//文件大小
 	FileSize int64 `json:"fileSize"` // 文件大小
 	//文件内容
-	File multipart.File // 文件内容
+	File io.Reader // 文件内容
 }
 
 // HttpPostFile POST上传文件

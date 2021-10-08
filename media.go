@@ -3,8 +3,9 @@ package WeChatCustomerServiceSDK
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+
 	"github.com/NICEXAI/WeChatCustomerServiceSDK/util"
-	"mime/multipart"
 )
 
 const (
@@ -23,7 +24,7 @@ type MediaUploadOptions struct {
 	//文件大小
 	FileSize int64 `json:"fileSize"` // 文件大小
 	//文件内容
-	File multipart.File // 文件内容
+	File io.Reader // 文件内容
 }
 
 // MediaUploadSchema 上传临时素材响应内容
