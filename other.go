@@ -17,7 +17,7 @@ type CorpQualificationSchema struct {
 	WechatChannelsBinding bool `json:"wechat_channels_binding"` // 	当企业具有绑定成功的视频号时，返回true，否则返回false。 1. 企业申请绑定视频号且由视频号管理员确认后，才为绑定成功状态 2. 至少有一个绑定成功的视频号就会返回true
 }
 
-// GetCorpQualification 获取视频号绑定状态
+// GetCorpQualification 获取视频号绑定状态（该接口有可能被企业微信废弃掉了，慎用）
 // 微信客服可接待的客户数，和企业是否已完成主体验证、是否绑定视频号相关。
 //
 // 企业未完成主体验证时，微信客服仅可累计接待100位客户
